@@ -6,12 +6,12 @@
 #BSUB -R span[hosts=1]
 #BSUB -J hzao index
 
-# Build the graph-based pangneome
-# Note : KMC must be in the $PATH for build_pangenome to work
-export PATH=/gss1/home/hzhao/paul/rna_seq/tools/KMC/bin/:$PATH
-export PATH=/gss1/App_dir/jdk-15.0.1/bin:$PATH
+# Load pantools environment
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate /gss1/home/hzhao/anaconda3/envs/py3/envs/pantools
 
-java -jar /gss1/home/hzhao/paul/rna_seq/tools/pantools-v4.2.2/pantools-4.3.2.jar build_pangenome \
+# Build the graph-based pangneome
+pantools build_pangenome \
 --threads=24 \
 citrus_pangenome \
 genome_locations.txt
@@ -19,13 +19,13 @@ genome_locations.txt
 
 # Add annotations to the pangenome
 # This will also generate a list of proteins based on gene and CDS coordinates
-java -jar /gss1/home/hzhao/paul/rna_seq/tools/pantools-v4.2.2/pantools-4.3.2.jar add_annotations \
+pantools add_annotations \
 citrus_pangenome \
 genome_annotations.txt
 
 
 # Get metrics 
-java -jar /gss1/home/hzhao/paul/rna_seq/tools/pantools-v4.2.2/pantools-4.3.2.jar metrics \
+pantools metrics \
 citrus_pangenome 
 
 
