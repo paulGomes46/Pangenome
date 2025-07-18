@@ -24,6 +24,15 @@ vg rna \
   -t 8 \
   > SWO_rna.vg
 
+
+vg rna \
+-p \
+--threads 8 \
+--transcripts /gss1/home/hzhao/paul/rna_seq/genome/hzao3.gff3 \
+/gss1/home/hzhao/paul/rna_seq/genome/pangenome/SWO.vg.gz \
+> spliced_SWO.pg
+
+
 # STEP 3: Index the graph
 echo "🧩 Indexing the graph..."
 vg index -x "${BASENAME}.xg" "${BASENAME}_txp.vg"
